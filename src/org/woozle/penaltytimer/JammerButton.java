@@ -27,24 +27,28 @@ public class JammerButton extends TimerButton
     }
 
     public void onClick(View v) {
-        if (! paused) {
-            long orem = peer.remaining();
+        if (! paused && peer.running) {
+            penalized = true;
 
-            if ((! running) && (! penalized) && (orem > 0)) {
-                orem -= 60000;
+            if (peer.penalized) {
+                // 7.4.1 -- Add a minute
+            } else {
+                // 7.4 -- Take a minute away from the other side
+                // if it goes negative, that's our time.
+                long orem = peer.remaining() - 60000;
+
                 if (orem < 0) {
                     set(-orem);
                     start();
                     peer.set(0);
                     peer.stop();
-                    peer.penalized = true;
                 } else {
                     peer.set(orem);
                 }
-            } else {
-                super.onClick(v);
+                return;
             }
         }
+        super.onClick(v);
     }
 
     public void pause() {
