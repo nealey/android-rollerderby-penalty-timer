@@ -118,7 +118,7 @@ public class TimerButton
         if (r <= 0) {
             cf = releaseColor;
         } else if (r < 10000) {
-            if (! shook) {
+            if (running && ! shook) {
                 vibr.vibrate(200);
                 shook = true;
             }
