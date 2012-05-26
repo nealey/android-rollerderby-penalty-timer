@@ -12,9 +12,9 @@
             android:stretchColumns="*">
         <TableRow>
             <Button android:text="Jam End"
+                    android:id="@+id/pause"
+                    android:layout_span="2"
                     android:onClick="pauseButton" />
-            <Button android:text="Jam Begin"
-                    android:onClick="resumeButton" />
         </TableRow>
     </TableLayout>
 </ScrollView>

@@ -10,8 +10,8 @@ public class JammerButton extends TimerButton
     public boolean penalized = false;
     private JammerButton peer;
 
-    public JammerButton(Context context) {
-        super(context);
+    public JammerButton(Context context, long now) {
+        super(context, now);
     }
 
     public String str(long remain, boolean tenths) {
@@ -27,7 +27,7 @@ public class JammerButton extends TimerButton
     }
 
     public void onClick(View v) {
-        if (! paused && peer.running) {
+        if (peer.running) {
             penalized = true;
 
             if (peer.penalized) {

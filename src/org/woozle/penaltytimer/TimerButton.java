@@ -7,6 +7,7 @@ import android.view.View.*;
 import android.view.Gravity;
 import android.graphics.Color;
 import android.os.SystemClock;
+import android.os.Vibrator;
 import java.util.*;
 
 public class TimerButton
@@ -14,19 +15,21 @@ public class TimerButton
 {
     Button b;
     Timer      updateTimer;
-    long startTime = 0;
-    long duration = 0;
+    public long startTime = 0;
+    public long duration = 0;
     public boolean running = false;
-    public boolean paused = false;
+    boolean shook = false;
+    Vibrator vibr;
     long now;
 
     static int releaseColor = Color.rgb(0, 127, 0);
     static int standColor = Color.rgb(127, 127, 0);
     static int normalColor = Color.BLACK;
-    static int pauseColor = Color.GRAY;
 
-    public TimerButton(Context context) {
+    public TimerButton(Context context, long now) {
         b = new Button(context);
+
+        vibr = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
 
         b.setText("--:--");
         b.setTextSize(24);
@@ -34,6 +37,8 @@ public class TimerButton
         updateTimer = new Timer();
         b.setOnClickListener(this);
         b.setOnLongClickListener(this);
+
+        this.now = now;
     }
 
     public long remaining() {
@@ -53,7 +58,6 @@ public class TimerButton
         if (remain <= 0) {
             return "--:--";
         }
-
 
         ret = min + ":";
         if (sec < 10) {
@@ -104,14 +108,17 @@ public class TimerButton
         if ((duration > 0) && (r <= 0)) {
             duration = 0;
             running = false;
+            shook = false;
             expireHook();
         }
 
-        if (paused) {
-            b.setTextColor(pauseColor);
-        } else if (r <= 0) {
+        if (r <= 0) {
             b.setTextColor(releaseColor);
         } else if (r < 10000) {
+            if (! shook) {
+                vibr.vibrate(200);
+                shook = true;
+            }
             b.setTextColor(standColor);
         } else {
             b.setTextColor(normalColor);
@@ -125,9 +132,6 @@ public class TimerButton
     }
 
     public void onClick(View v) {
-        if (paused) {
-            return;
-        }
         set((remaining() + 60000) % (60 * 8 * 1000));
         start();
     }
@@ -140,12 +144,12 @@ public class TimerButton
     }
 
     public void pause() {
-        paused = true;
         stop();
+        b.setEnabled(false);
     }
 
     public void resume() {
-        paused = false;
+        b.setEnabled(true);
         if (remaining() > 0) {
             start();
         }
