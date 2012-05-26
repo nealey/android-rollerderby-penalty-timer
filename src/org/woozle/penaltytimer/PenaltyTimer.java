@@ -137,9 +137,9 @@ public class PenaltyTimer extends Activity
             }
         }
         if (paused) {
-            e.setText("Jam Begin");
+            e.setText(R.string.jam_begin);
         } else {
-            e.setText("Jam End");
+            e.setText(R.string.jam_end);
         }
     }
 }

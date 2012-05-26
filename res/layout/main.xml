@@ -11,7 +11,7 @@
             android:gravity="center"
             android:stretchColumns="*">
         <TableRow>
-            <Button android:text="Jam End"
+            <Button android:text="@+string/jam_end"
                     android:id="@+id/pause"
                     android:layout_span="2"
                     android:onClick="pauseButton" />

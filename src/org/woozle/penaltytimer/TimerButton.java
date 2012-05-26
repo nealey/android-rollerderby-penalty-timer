@@ -5,7 +5,9 @@ import android.widget.*;
 import android.view.View;
 import android.view.View.*;
 import android.view.Gravity;
-import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.PorterDuff;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import java.util.*;
@@ -22,9 +24,9 @@ public class TimerButton
     Vibrator vibr;
     long now;
 
-    static int releaseColor = Color.rgb(0, 127, 0);
-    static int standColor = Color.rgb(127, 127, 0);
-    static int normalColor = Color.BLACK;
+    static ColorFilter releaseColor = null;
+    static ColorFilter standColor   = new PorterDuffColorFilter(0xffffff88, PorterDuff.Mode.MULTIPLY);
+    static ColorFilter normalColor  = new PorterDuffColorFilter(0xffff8888, PorterDuff.Mode.MULTIPLY);
 
     public TimerButton(Context context, long now) {
         b = new Button(context);
@@ -104,6 +106,7 @@ public class TimerButton
 
     public void update() {
         long r = remaining();
+        ColorFilter cf;
 
         if ((duration > 0) && (r <= 0)) {
             duration = 0;
@@ -113,16 +116,17 @@ public class TimerButton
         }
 
         if (r <= 0) {
-            b.setTextColor(releaseColor);
+            cf = releaseColor;
         } else if (r < 10000) {
             if (! shook) {
                 vibr.vibrate(200);
                 shook = true;
             }
-            b.setTextColor(standColor);
+            cf = standColor;
         } else {
-            b.setTextColor(normalColor);
+            cf = normalColor;
         }
+        b.getBackground().setColorFilter(cf);
         b.setText(str(r, true));
     }
 
