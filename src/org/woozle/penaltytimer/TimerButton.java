@@ -79,6 +79,7 @@ public class TimerButton
     }
 
     public void set(long t) {
+        shook = false;
         startTime = now;
         duration = t;
     }

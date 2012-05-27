@@ -19,7 +19,7 @@ clean:
 	ant clean
 
 bin/PenaltyTimer-release.apk: bin/PenaltyTimer-release-unaligned.apk
-	$(ZIPALIGN) -v 4 $< $@
+	$(ZIPALIGN) -f 4 $< $@
 	
 bin/PenaltyTimer-release-unaligned.apk: bin/PenaltyTimer-release-unsigned.apk
 	jarsigner -verbose -sigalg MD5withRSA -digestalg SHA1 -keystore $(KEYSTORE) -signedjar $@ $< $(ALIAS)
