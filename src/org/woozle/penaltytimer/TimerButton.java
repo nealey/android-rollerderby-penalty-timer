@@ -10,6 +10,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.PorterDuff;
 import android.os.SystemClock;
 import android.os.Vibrator;
+import android.util.TypedValue;
 import java.util.*;
 
 public class TimerButton
@@ -41,6 +42,10 @@ public class TimerButton
         b.setOnLongClickListener(this);
 
         this.now = now;
+    }
+
+    public void setHeight(int height) {
+        b.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
     }
 
     public long remaining() {

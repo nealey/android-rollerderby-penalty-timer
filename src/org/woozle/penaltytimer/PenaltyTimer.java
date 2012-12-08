@@ -37,19 +37,18 @@ public class PenaltyTimer extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Persistence p = (Persistence)getLastNonConfigurationInstance();
-        TableLayout tl;
-        View top;
         long now = SystemClock.uptimeMillis();
+        LinearLayout top;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        tl = (TableLayout)findViewById(R.id.mainTable);
-        top = findViewById(R.id.main);
+        top = (LinearLayout)findViewById(R.id.main);
 
+        // Create all the buttons
         for (int i = 0; i < 4; i += 1) {
-            TableRow tr = new TableRow(this);
+            LinearLayout tr = new LinearLayout(this);
 
-            tl.addView(tr, i);
+            top.addView(tr, i);
 
             for (int j = 0; j < 2; j += 1) {
                 TimerButton b;
@@ -57,7 +56,7 @@ public class PenaltyTimer extends Activity
 
                 if (i == 0) {
                     JammerButton jb = new JammerButton(this, now);
-
+                    
                     if (p != null) {
                         jb.penalized = p.penalized[j];
                     }
@@ -75,12 +74,12 @@ public class PenaltyTimer extends Activity
                     b.running = p.running[idx];
                 }
 
-                v = b.getButton();
-                tr.addView(v);
+                tr.addView(b.getButton());
 
                 tbs[i*2 + j] = b;
             }
         }
+
 
         // Invert value, then simulate a button press
         if (p != null) {
@@ -88,13 +87,15 @@ public class PenaltyTimer extends Activity
         } else {
             paused = true;
         }
-        pauseButton(top);
+        pauseButton();
 
         jbs[0].setOther(jbs[1]);
         jbs[1].setOther(jbs[0]);
 
         mHandler.postAtTime(pulse, 100);
+
     }
+
 
 
     public Object onRetainNonConfigurationInstance() {
@@ -125,7 +126,7 @@ public class PenaltyTimer extends Activity
     }
 
 
-    public void pauseButton(View v) {
+    public void pauseButton() {
         Button e = (Button) findViewById(R.id.pause);
 
         paused = !paused;
@@ -141,6 +142,10 @@ public class PenaltyTimer extends Activity
         } else {
             e.setText(R.string.jam_end);
         }
+    }
+
+    public void pauseButton(View v) {
+        pauseButton();
     }
 }
 

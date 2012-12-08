@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/main"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:keepScreenOn="true">
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/mainTable"
-            android:layout_height="fill_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+    <Button 
+            android:id="@+id/pause"
+            android:text="Jam End"
             android:layout_width="fill_parent"
-            android:gravity="center"
-            android:stretchColumns="*">
-        <TableRow>
-            <Button android:text="@+string/jam_end"
-                    android:id="@+id/pause"
-                    android:layout_span="2"
-                    android:onClick="pauseButton" />
-        </TableRow>
-    </TableLayout>
-</ScrollView>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:onClick="pauseButton" />
+</LinearLayout>
