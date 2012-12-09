@@ -10,7 +10,6 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.PorterDuff;
 import android.os.SystemClock;
 import android.os.Vibrator;
-import android.util.TypedValue;
 import java.util.*;
 
 public class TimerButton
@@ -32,19 +31,13 @@ public class TimerButton
     public TimerButton(Context context, Button btn, long now) {
         vibr = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
 
-	b = btn;
+        b = btn;
         b.setText("--:--");
-        b.setTextSize(24);
-        b.setGravity(Gravity.CENTER);
         updateTimer = new Timer();
         b.setOnClickListener(this);
         b.setOnLongClickListener(this);
 
         this.now = now;
-    }
-
-    public void setHeight(int height) {
-        b.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
     }
 
     public long remaining() {
@@ -79,7 +72,7 @@ public class TimerButton
     }
 
     public String str(long remain, boolean tenths) {
-        return bstr(remain, tenths) + " B";
+        return bstr(remain, tenths);
     }
 
     public void set(long t) {
