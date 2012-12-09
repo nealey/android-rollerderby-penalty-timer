@@ -29,9 +29,9 @@ define(row, `<LinearLayout
                 />
     </LinearLayout>')
     row(jl, jr)
-    row(bl1, br1)
-    row(bl2, br2)
-    row(bl3, br3)
+    row(b1l, b1r)
+    row(b2l, b2r)
+    row(b3l, b3r)
     <Button 
             android:id="@+id/pause"
             android:text="Jam End"

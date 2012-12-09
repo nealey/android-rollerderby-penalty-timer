@@ -1,8 +1,7 @@
 package org.woozle.penaltytimer;
 
 import android.app.Activity;
-import android.view.View;
-import android.widget.Toast;
+import android.view.*;
 import android.widget.*;
 import android.os.*;
 import java.lang.Math;
@@ -15,6 +14,14 @@ public class PenaltyTimer extends Activity
     private JammerButton[] jbs = new JammerButton[2];
     private TimerButton[] tbs = new TimerButton[8];
     private boolean paused = false;
+
+    private int[] btns = {
+        R.id.jl, R.id.jr,
+        R.id.b1l, R.id.b1r,
+        R.id.b2l, R.id.b2r,
+        R.id.b3l, R.id.b3r,
+    };
+
     
     private Runnable pulse = new Runnable() {
         public void run() {
@@ -39,45 +46,36 @@ public class PenaltyTimer extends Activity
         Persistence p = (Persistence)getLastNonConfigurationInstance();
         long now = SystemClock.uptimeMillis();
         LinearLayout top;
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 0, (float)2.0);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         top = (LinearLayout)findViewById(R.id.main);
 
-        // Create all the buttons
-        for (int i = 0; i < 4; i += 1) {
-            LinearLayout tr = new LinearLayout(this);
+        // Set up all the buttons
+        for (int i = 0; i < 8; i += 1) {
+            Button btn = (Button)findViewById(btns[i]);
+            TimerButton b;
+            TextView v;
 
-            top.addView(tr, i);
-
-            for (int j = 0; j < 2; j += 1) {
-                TimerButton b;
-                TextView v;
-
-                if (i == 0) {
-                    JammerButton jb = new JammerButton(this, now);
-                    
-                    if (p != null) {
-                        jb.penalized = p.penalized[j];
-                    }
-                    jbs[j] = jb;
-                    b = jb;
-                } else {
-                    b = new TimerButton(this, now);
-                }
-
+            if (i < 2) {
+                JammerButton jb = new JammerButton(this, btn, now);
                 if (p != null) {
-                    int idx = i*2 + j;
-
-                    b.startTime = p.startTime[idx];
-                    b.duration = p.duration[idx];
-                    b.running = p.running[idx];
+                    jb.penalized = p.penalized[i];
                 }
-
-                tr.addView(b.getButton());
-
-                tbs[i*2 + j] = b;
+                jbs[i] = jb;
+                b = jb;
+            } else {
+                b = new TimerButton(this, btn, now);
             }
+
+            if (p != null) {
+                b.startTime = p.startTime[i];
+                b.duration = p.duration[i];
+                b.running = p.running[i];
+            }
+
+            tbs[i] = b;
         }
 
 

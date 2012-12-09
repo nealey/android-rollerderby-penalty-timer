@@ -29,11 +29,10 @@ public class TimerButton
     static ColorFilter standColor   = new PorterDuffColorFilter(0xffffff88, PorterDuff.Mode.MULTIPLY);
     static ColorFilter normalColor  = new PorterDuffColorFilter(0xffff8888, PorterDuff.Mode.MULTIPLY);
 
-    public TimerButton(Context context, long now) {
-        b = new Button(context);
-
+    public TimerButton(Context context, Button btn, long now) {
         vibr = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
 
+	b = btn;
         b.setText("--:--");
         b.setTextSize(24);
         b.setGravity(Gravity.CENTER);

@@ -1,6 +1,7 @@
 package org.woozle.penaltytimer;
 
 import android.content.Context;
+import android.widget.Button;
 import android.view.View;
 import android.view.View.*;
 
@@ -10,12 +11,12 @@ public class JammerButton extends TimerButton
     public boolean penalized = false;
     private JammerButton peer;
 
-    public JammerButton(Context context, long now) {
-        super(context, now);
+    public JammerButton(Context context, Button btn, long now) {
+        super(context, btn, now);
     }
 
     public String str(long remain, boolean tenths) {
-        return bstr(remain, tenths) + " J";
+        return bstr(remain, tenths) + " ★";
     }
 
     public void setOther(JammerButton other) {
