@@ -18,14 +18,17 @@ release-install: bin/PenaltyTimer-release.apk
 clean:
 	ant clean
 
+res/layout/main.xml: main.xml.m4
+	m4 $< > $@
+
 bin/PenaltyTimer-release.apk: bin/PenaltyTimer-release-unaligned.apk
 	$(ZIPALIGN) -f 4 $< $@
 	
 bin/PenaltyTimer-release-unaligned.apk: bin/PenaltyTimer-release-unsigned.apk
 	jarsigner -verbose -sigalg MD5withRSA -digestalg SHA1 -keystore $(KEYSTORE) -signedjar $@ $< $(ALIAS)
 
-bin/PenaltyTimer-release-unsigned.apk: src/org/woozle/penaltytimer/* res/*/*
+bin/PenaltyTimer-release-unsigned.apk: src/org/woozle/penaltytimer/* res/*/* res/layout/main.xml
 	ant release
 
-bin/PenaltyTimer-debug.apk: src/org/woozle/penaltytimer/* res/*/*
+bin/PenaltyTimer-debug.apk: src/org/woozle/penaltytimer/* res/*/* res/layout/main.xml
 	ant debug
