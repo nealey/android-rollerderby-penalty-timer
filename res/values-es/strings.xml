@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Penalty Timer</string>
+    <string name="description">WFTDA Roller Derby Penalty Timer de woozle.org</string>
+    <string name="jam_begin">Jam Comenzar</string>
+    <string name="jam_end">Jam Terminar</string>
+</resources>
