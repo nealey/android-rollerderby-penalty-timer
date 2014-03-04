@@ -15,6 +15,9 @@ import java.util.*;
 public class TimerButton
     implements OnClickListener, OnLongClickListener
 {
+	final int penaltyTime = 30;
+	final int maxPenalties = 7;
+
     Button b;
     Timer      updateTimer;
     public long startTime = 0;
@@ -134,7 +137,7 @@ public class TimerButton
     }
 
     public void onClick(View v) {
-        set((remaining() + 60000) % (60 * 8 * 1000));
+        set((remaining() + penaltyTime * 1000) % (penaltyTime * (maxPenalties + 1) * 1000));
         start();
     }
 

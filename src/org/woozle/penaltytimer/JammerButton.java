@@ -32,11 +32,11 @@ public class JammerButton extends TimerButton
             penalized = true;
 
             if (peer.penalized) {
-                // 7.4.1 -- Add a minute
+                // 6.4.1 -- Add penaltyTime
             } else {
-                // 7.4 -- Take a minute away from the other side
+                // 6.4 -- Take penaltyTime away from the other side
                 // if it goes negative, that's our time.
-                long orem = peer.remaining() - 60000;
+                long orem = peer.remaining() - (penaltyTime * 1000);
 
                 if (orem < 0) {
                     set(-orem);

@@ -5,7 +5,7 @@ SDK = /opt/android-sdk
 
 ZIPALIGN = $(SDK)/tools/zipalign
 
-default: release-install
+default: debug-install
 
 install: debug-install
 debug-install: bin/PenaltyTimer-debug.apk
